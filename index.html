@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Wrapped - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 3rem;
+        }
+
+        .year-section {
+            margin-bottom: 3rem;
+        }
+
+        .year-title {
+            font-size: 2rem;
+            color: #4a9eff;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #4a9eff;
+            padding-bottom: 0.5rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffd700;
+        }
+
+        .link-card h3 {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .link-card p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .player-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clash Wrapped</h1>
+        <p class="subtitle">Your League of Legends Clash Statistics</p>
+
+        <div class="year-section">
+            <h2 class="year-title">2025</h2>
+            <div class="links-grid">
+                <a href="html/2025/clash_wrapped_all.html" class="link-card">
+                    <h3>All Players</h3>
+                    <p>View combined statistics</p>
+                </a>
+                <a href="html/2025/clash_wrapped_Josh.html" class="link-card">
+                    <img src="icons/players/Josh.png" alt="Josh" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Josh</h3>
+                    <p>View Josh's stats</p>
+                </a>
+                <a href="html/2025/clash_wrapped_Kevin.html" class="link-card">
+                    <img src="icons/players/Kevin.png" alt="Kevin" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Kevin</h3>
+                    <p>View Kevin's stats</p>
+                </a>
+                <a href="html/2025/clash_wrapped_Logan.html" class="link-card">
+                    <img src="icons/players/Logan.png" alt="Logan" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Logan</h3>
+                    <p>View Logan's stats</p>
+                </a>
+                <a href="html/2025/clash_wrapped_Nathan.html" class="link-card">
+                    <img src="icons/players/Nathan.png" alt="Nathan" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Nathan</h3>
+                    <p>View Nathan's stats</p>
+                </a>
+                <a href="html/2025/clash_wrapped_Ryan.html" class="link-card">
+                    <img src="icons/players/Ryan.png" alt="Ryan" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Ryan</h3>
+                    <p>View Ryan's stats</p>
+                </a>
+                <a href="html/2025/clash_wrapped_Skyler.html" class="link-card">
+                    <img src="icons/players/Skyler.png" alt="Skyler" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Skyler</h3>
+                    <p>View Skyler's stats</p>
+                </a>
+                <a href="html/2025/clash_wrapped_Toby.html" class="link-card">
+                    <img src="icons/players/Toby.png" alt="Toby" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Toby</h3>
+                    <p>View Toby's stats</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="year-section">
+            <h2 class="year-title">2024</h2>
+            <div class="links-grid">
+                <a href="html/2024/clash_wrapped_all.html" class="link-card">
+                    <h3>All Players</h3>
+                    <p>View combined statistics</p>
+                </a>
+                <a href="html/2024/clash_wrapped_Josh.html" class="link-card">
+                    <img src="icons/players/Josh.png" alt="Josh" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Josh</h3>
+                    <p>View Josh's stats</p>
+                </a>
+                <a href="html/2024/clash_wrapped_Kevin.html" class="link-card">
+                    <img src="icons/players/Kevin.png" alt="Kevin" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Kevin</h3>
+                    <p>View Kevin's stats</p>
+                </a>
+                <a href="html/2024/clash_wrapped_Logan.html" class="link-card">
+                    <img src="icons/players/Logan.png" alt="Logan" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Logan</h3>
+                    <p>View Logan's stats</p>
+                </a>
+                <a href="html/2024/clash_wrapped_Nathan.html" class="link-card">
+                    <img src="icons/players/Nathan.png" alt="Nathan" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Nathan</h3>
+                    <p>View Nathan's stats</p>
+                </a>
+                <a href="html/2024/clash_wrapped_Ryan.html" class="link-card">
+                    <img src="icons/players/Ryan.png" alt="Ryan" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Ryan</h3>
+                    <p>View Ryan's stats</p>
+                </a>
+                <a href="html/2024/clash_wrapped_Skyler.html" class="link-card">
+                    <img src="icons/players/Skyler.png" alt="Skyler" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Skyler</h3>
+                    <p>View Skyler's stats</p>
+                </a>
+                <a href="html/2024/clash_wrapped_Toby.html" class="link-card">
+                    <img src="icons/players/Toby.png" alt="Toby" class="player-icon" onerror="this.style.display='none'">
+                    <h3>Toby</h3>
+                    <p>View Toby's stats</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
