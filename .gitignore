@@ -1,0 +1,6 @@
+*.json
+*.db
+*.pyc
+*.py
+
+all_styles.html
