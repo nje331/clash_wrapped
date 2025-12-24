@@ -31,34 +31,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Inject password hash
-        env:
-          PASSWORD_HASH: ${{ secrets.SITE_PASSWORD_HASH }}
-        run: |
-          echo "Checking if secret is set..."
-          if [ -z "$PASSWORD_HASH" ]; then
-            echo "⚠️  Warning: SITE_PASSWORD_HASH secret is not set. Password protection will be disabled."
-            echo "To enable password protection, add SITE_PASSWORD_HASH to your repository secrets."
-          else
-            echo "✓ Secret found (length: ${#PASSWORD_HASH} characters)"
-            echo "Checking if placeholder exists in index.html..."
-            if grep -q "{{PASSWORD_HASH}}" index.html; then
-              echo "✓ Placeholder found, replacing..."
-              # Use a more robust replacement method
-              sed -i.bak "s|{{PASSWORD_HASH}}|$PASSWORD_HASH|g" index.html
-              rm -f index.html.bak
-              echo "✓ Replacement complete"
-              # Verify replacement
-              if grep -q "$PASSWORD_HASH" index.html && ! grep -q "{{PASSWORD_HASH}}" index.html; then
-                echo "✓ Verification successful: Hash injected correctly"
-              else
-                echo "⚠️  Warning: Replacement may have failed. Check the file manually."
-              fi
-            else
-              echo "⚠️  Warning: Placeholder {{PASSWORD_HASH}} not found in index.html"
-              echo "The file may have already been modified or the placeholder is missing."
-            fi
-          fi
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
