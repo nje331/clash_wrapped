@@ -32,9 +32,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Inject password hash
+        env:
+          PASSWORD_HASH: ${{ secrets.SITE_PASSWORD_HASH }}
         run: |
-          if [ -n "${{ secrets.SITE_PASSWORD_HASH }}" ]; then
-            sed -i "s|{{PASSWORD_HASH}}|${{ secrets.SITE_PASSWORD_HASH }}|g" index.html
+          if [ -n "$PASSWORD_HASH" ]; then
+            sed -i "s|{{PASSWORD_HASH}}|$PASSWORD_HASH|g" index.html
           fi
       - name: Setup Pages
         uses: actions/configure-pages@v5
