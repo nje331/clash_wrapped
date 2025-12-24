@@ -19,6 +19,101 @@
             padding: 2rem;
         }
 
+        /* Password protection overlay */
+        #password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            flex-direction: column;
+        }
+
+        #password-overlay.hidden {
+            display: none;
+        }
+
+        .password-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 2px solid #ffd700;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .password-container h2 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .password-container p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 2px solid #4a9eff;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            margin-bottom: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .password-input:focus {
+            border-color: #ffd700;
+        }
+
+        .password-input::placeholder {
+            color: #888;
+        }
+
+        .password-submit {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            background: #4a9eff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-weight: 600;
+        }
+
+        .password-submit:hover {
+            background: #3a8eef;
+            transform: translateY(-2px);
+        }
+
+        .password-submit:active {
+            transform: translateY(0);
+        }
+
+        .password-error {
+            color: #ff6b6b;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .password-error.show {
+            display: block;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -107,8 +202,94 @@
             }
         }
     </style>
+    <script>
+        // Password protection
+        // The password hash is injected here at build time from GitHub Secrets
+        // To generate a hash: Use the generate_password_hash.html file or run in browser console:
+        // async function hashPassword(pwd) { const encoder = new TextEncoder(); const data = encoder.encode(pwd); const hashBuffer = await crypto.subtle.digest('SHA-256', data); const hashArray = Array.from(new Uint8Array(hashBuffer)); return hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); }
+        // hashPassword('your-password').then(console.log);
+        
+        // Set this to your password hash (will be replaced by GitHub Actions if using secrets)
+        const PASSWORD_HASH = '{{PASSWORD_HASH}}';
+        
+        // Check if password is already stored in sessionStorage
+        function checkPassword() {
+            const storedHash = sessionStorage.getItem('clash_wrapped_auth');
+            if (storedHash === PASSWORD_HASH) {
+                document.getElementById('password-overlay').classList.add('hidden');
+                return true;
+            }
+            return false;
+        }
+
+        // Hash password input
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Handle password submission
+        async function handlePasswordSubmit() {
+            const input = document.getElementById('password-input');
+            const errorMsg = document.getElementById('password-error');
+            const password = input.value;
+            
+            if (!password) {
+                errorMsg.textContent = 'Please enter a password';
+                errorMsg.classList.add('show');
+                return;
+            }
+
+            const hashedPassword = await hashPassword(password);
+            
+            if (hashedPassword === PASSWORD_HASH) {
+                sessionStorage.setItem('clash_wrapped_auth', PASSWORD_HASH);
+                document.getElementById('password-overlay').classList.add('hidden');
+            } else {
+                errorMsg.textContent = 'Incorrect password. Please try again.';
+                errorMsg.classList.add('show');
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!checkPassword() && PASSWORD_HASH && PASSWORD_HASH !== '{{PASSWORD_HASH}}') {
+                // Password protection is enabled
+                document.getElementById('password-overlay').classList.remove('hidden');
+                document.getElementById('password-input').focus();
+                
+                // Handle Enter key
+                document.getElementById('password-input').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handlePasswordSubmit();
+                    }
+                });
+                
+                document.getElementById('password-submit').addEventListener('click', handlePasswordSubmit);
+            } else if (!PASSWORD_HASH || PASSWORD_HASH === '{{PASSWORD_HASH}}') {
+                // No password set, hide overlay
+                document.getElementById('password-overlay').classList.add('hidden');
+            }
+        });
+    </script>
 </head>
 <body>
+    <!-- Password Protection Overlay -->
+    <div id="password-overlay">
+        <div class="password-container">
+            <h2>🔒 Protected Content</h2>
+            <p>This content is password protected. Please enter the password to continue.</p>
+            <input type="password" id="password-input" class="password-input" placeholder="Enter password" autocomplete="off">
+            <button id="password-submit" class="password-submit">Unlock</button>
+            <div id="password-error" class="password-error"></div>
+        </div>
+    </div>
+
     <div class="container">
         <h1>Clash Wrapped</h1>
         <p class="subtitle">Your League of Legends Clash Statistics</p>

@@ -4,3 +4,4 @@
 *.py
 
 all_styles.html
+generate_password_hash.html
